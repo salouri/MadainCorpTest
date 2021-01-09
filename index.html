@@ -81,13 +81,13 @@
                 <td></td>
               </tr>
               <tr>
-                <td><button type="button" id="weapon11" class="weapons">Weapon1 Attack</button></td>
+                <td><button type="button" id="weapon11" class="weapons" value="0">Weapon1 Attack</button></td>
               </tr>
               <tr>
-                <td><button type="button" id="weapon12" class="weapons">Weapon2 Attack</button></td>
+                <td><button type="button" id="weapon12" class="weapons" value="0">Weapon2 Attack</button></td>
               </tr>
               <tr>
-                <td><button type="button" id="weapon13" class="weapons">Weapon3 Attack</button></td>
+                <td><button type="button" id="weapon13" class="weapons" value="0">Weapon3 Attack</button></td>
               </tr>
             </table>
           </td>
@@ -118,13 +118,13 @@
                 <td></td>
               </tr>
               <tr>
-                <td><button type="button" id="weapon21" class="weapons">Weapon1 Attack</button></td>
+                <td><button type="button" id="weapon21" class="weapons" value="0">Weapon1 Attack</button></td>
               </tr>
               <tr>
-                <td><button type="button" id="weapon22" class="weapons">Weapon2 Attack</button></td>
+                <td><button type="button" id="weapon22" class="weapons" value="0">Weapon2 Attack</button></td>
               </tr>
               <tr>
-                <td><button type="button" id="weapon23" class="weapons">Weapon3 Attack</button></td>
+                <td><button type="button" id="weapon23" class="weapons" value="0">Weapon3 Attack</button></td>
               </tr>
             </table>
           </td>
@@ -137,8 +137,28 @@
 
   <script type="text/javascript">
     result = "You";
-    //  result = window.prompt("Enter your name:", "You");
+    result = window.prompt("Enter your name:", "You");
     document.getElementById("youPlayer").innerHTML = 'Player2: ' + result;
+
+    let computer_player = new Player('computer');
+    let user_player = new Player(result);
+
+    function assign_weights(player, elements){
+      // "player" is the object instantiated from class Player
+      // "elements" are the attack buttons children of the current player
+      // by design, "elemens" buttons count should be the same as "_weapons_count"
+      attacks_weights = player.weapons_list
+      for (btn of elements){
+        //assign values of weights randomly to attack buttons
+        btnElem.value = attacks_weights.pop()
+      }
+
+    }
+    function attackPlayer(otherPlayer, attack_weight){
+      /* the attack_weight comes from current player's attack-button's weight! 
+      the otherPlayer is determined by current player for which the attack-button was clicked*/
+      otherPlayer.getAttacked(attack_weight)
+    }
 
     let weapons_box = document.querySelectorAll("#weapon_box2")
     weapons_box.hidden = true;
@@ -154,14 +174,15 @@
     })) 
 
     class Player {
-      weapons_count = 3;
       constructor(name){
+        this._weapons_count = 3;
         this.name = name;
         this.health = 100;
         this.weapons_list = []
+        this.generateWeaponsList()
       }
-      generateWeapons(){
-        for(let i=0; i<weapons_count; i++){
+      generateWeaponsList(){
+        for(let i=0; i<this._weapons_count; i++){
           // weapons have values from 10 to 40 which represent the impact (in %) of the attack on the other player
           let max = 40, min = 10
           let weight = Math.floor(Math.random() * (max - min) + min);
@@ -175,6 +196,9 @@
 
       get health(){ // no setter for health. getAttached function is the only way to impact it
         return this.health;
+      }
+      get weapons_list(){
+        return this.weapons_list
       }
       resetHealth(){
         this.health = 100
