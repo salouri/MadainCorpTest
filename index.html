@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cat vs Dog</title>
+  <style>
+    .container {
+      border: 3px solid #fff;
+      padding: 20px;
+      display: flex;
+      text-align: center;
+    }
+
+    .left_side,
+    .right_side {
+      flex: 1;
+      width: 50%;
+      padding: 20px;
+      border: 2px solid black;
+      margin-right: 20px;
+      position: relative;
+      align-items: center;
+    }
+
+    .left_side {
+      float: left;
+    }
+
+    .health_bar {
+      background-color: green;
+      height: 15px;
+      width: 95%;
+
+    }
+
+    .attack_btn,
+    .weapons {
+      margin: auto;
+      margin-top: 5%;
+    }
+
+    div.ext-box {
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+    }
+
+    div.int-box {
+      display: inline-block;
+      display: none;
+    }
+  </style>
+
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root" class="container">
+
+   <div id="playerL" class="left_side">
+      <table style="width:100%">
+        <tr id="comPlayer">
+          <th>Player2: Computer</th>
+        </tr>
+        <tr>
+          <td><progress id="healthL" class="health_bar" value="100" max="100"></progress></td>
+        </tr>
+        <tr>
+          <td><button type="button" id="pl1_btn" class="attack_btn">Generate Weapons!</button></td>
+        </tr>
+        <tr>
+          <td>
+            <table style="width:100%;">
+              <tr id="weapon_label1" class="weapons">
+                <th>Weapons List:</th>
+              </tr>
+              <tr>
+                <td></td>
+              </tr>
+              <tr>
+                <td><button type="button" id="weapon11" class="weapons">Weapon1 Attack</button></td>
+              </tr>
+              <tr>
+                <td><button type="button" id="weapon12" class="weapons">Weapon2 Attack</button></td>
+              </tr>
+              <tr>
+                <td><button type="button" id="weapon13" class="weapons">Weapon3 Attack</button></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+
+    </div>
+
+    <div id="playerR" class="right_side">
+      <table style="width:100%">
+        <tr id="youPlayer">
+          <th>Player2: You</th>
+        </tr>
+        <tr>
+          <td><progress id="healthR" class="health_bar" value="100" max="100"></progress></td>
+        </tr>
+        <tr>
+          <td><button type="button" id="pl2_btn" class="attack_btn">Generate Weapons!</button></td>
+        </tr>
+        <tr id="weapon_box2" >
+          <td>
+            <table style="width:100%;">
+              <tr id="weapon_label2" >
+                <th><span class="weapons">Weapons List:</span></th>
+              </tr>
+              <tr>
+                <td></td>
+              </tr>
+              <tr>
+                <td><button type="button" id="weapon21" class="weapons">Weapon1 Attack</button></td>
+              </tr>
+              <tr>
+                <td><button type="button" id="weapon22" class="weapons">Weapon2 Attack</button></td>
+              </tr>
+              <tr>
+                <td><button type="button" id="weapon23" class="weapons">Weapon3 Attack</button></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    result = "You";
+    //  result = window.prompt("Enter your name:", "You");
+    document.getElementById("youPlayer").innerHTML = 'Player2: ' + result;
+
+    let weapons_box = document.querySelectorAll("#weapon_box2")
+    weapons_box.hidden = true;
+    // weapons_buttons.forEach(element => {
+    //   element.hidden = true;
+    // });
+
+    let attack_btns = document.querySelectorAll(".attack_btn")
+    attack_btns.forEach(iButton => iButton.addEventListener("click", function () {
+      weapons_buttons.forEach(element => {
+        element.hidden = false;
+      });
+    })) 
+  </script>
+</body>
+
+</html>
