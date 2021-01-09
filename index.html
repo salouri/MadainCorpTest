@@ -154,10 +154,12 @@
       }
 
     }
-    function attackPlayer(otherPlayer, attack_weight){
-      /* the attack_weight comes from current player's attack-button's weight! 
-      the otherPlayer is determined by current player for which the attack-button was clicked*/
+    function attackPlayer(otherPlayer,healthbar_ID, attack_weight){
+      /* the "attack_weight" comes from current player's attack-button's weight! 
+      the "otherPlayer" is determined by current player for which the attack-button was clicked
+      "healthbar_ID": is dom element id of the other player health bar*/
       otherPlayer.getAttacked(attack_weight)
+      otherPlayer_healthbar = document.getElementById("#"+ healthbar_ID).value = otherPlayer.health
     }
 
     let weapons_box = document.querySelectorAll("#weapon_box2")
