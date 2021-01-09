@@ -152,6 +152,34 @@
         element.hidden = false;
       });
     })) 
+
+    class Player {
+      weapons_count = 3;
+      constructor(name){
+        this.name = name;
+        this.health = 100;
+        this.weapons_list = []
+      }
+      generateWeapons(){
+        for(let i=0; i<weapons_count; i++){
+          // weapons have values from 10 to 40 which represent the impact (in %) of the attack on the other player
+          let max = 40, min = 10
+          let weight = Math.floor(Math.random() * (max - min) + min);
+          this.weapons_list.push(weight)
+        }
+      }
+      /* Below, the "impact" is the weight of the attack from the other player */
+      getAttacked(impact){
+        this.health = (this.health <= impact)? 0 : this.health - impact
+      }
+
+      get health(){ // no setter for health. getAttached function is the only way to impact it
+        return this.health;
+      }
+      resetHealth(){
+        this.health = 100
+      }
+    }
   </script>
 </body>
 
